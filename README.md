@@ -7,3 +7,26 @@ The resulting notebook is here https://github.com/alicelebrun/Unit_commitment/bl
 The output is an animation of the production
 
 <img width="1210" height="757" alt="image" src="https://github.com/user-attachments/assets/110cd34c-70bb-46cd-bfc0-a88d7c018108" />
+
+## Environment
+
+The notebook is written for PuLP 3. PuLP 4 moved its modelling core to Rust and
+removed the `cat` argument of `LpVariable`: from version 4 on, binary variables
+must be created with `LpProblem.add_variable(..., cat="Binary")`, so the model
+has to be ported before it can run with PuLP 4. The versions known to run the
+notebook unchanged are listed in `requirements.txt`:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+The `HiGHS_CMD` solver is only an interface to the HiGHS executable, which must
+be in the `PATH`. Check its availability with:
+
+```python
+import pulp
+print(pulp.HiGHS_CMD().available())
+```
+
+If it prints `False`, install HiGHS (`apt install highs`, or a binary from
+https://github.com/ERGO-Code/HiGHS/releases) and check again.
